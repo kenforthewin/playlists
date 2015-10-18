@@ -1,0 +1,18 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: playlists_rails_dev
+  host: localhost
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: playlists_rails_test
+  host: localhost
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: playlists_rails_prod
+  host: localhost
+

@@ -1,0 +1,20 @@
+# == Schema Information
+#
+# Table name: tracks
+#
+#  id           :integer          not null, primary key
+#  playlist_id  :integer
+#  text_content :text
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  playlist_id: 1
+  text_content: MyText
+
+two:
+  playlist_id: 1
+  text_content: MyText

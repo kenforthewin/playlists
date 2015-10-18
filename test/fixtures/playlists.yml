@@ -1,0 +1,27 @@
+# == Schema Information
+#
+# Table name: playlists
+#
+#  id               :integer          not null, primary key
+#  name             :string
+#  description      :text
+#  user_id          :integer
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  pic_file_name    :string
+#  pic_content_type :string
+#  pic_file_size    :integer
+#  pic_updated_at   :datetime
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  description: MyText
+  user_id: 1
+
+two:
+  name: MyString
+  description: MyText
+  user_id: 1

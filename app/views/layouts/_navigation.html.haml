@@ -1,0 +1,17 @@
+%nav
+  .nav-wrapper
+    = link_to 'Playlists', root_path, class: 'brand-logo center'
+    %ul#nav-mobile.left.hide-on-med-and-down
+      - if user_signed_in?
+        %li
+          = link_to new_playlist_path do
+            %i.material-icons playlist_add
+    %ul#nav-mobile.right.hide-on-med-and-down
+      - if user_signed_in?
+        %li
+          = link_to 'Sign out', destroy_user_session_path, method: :delete
+      - else
+        %li
+          = link_to 'Sign up', new_user_registration_path
+        %li
+          = link_to 'Sign in', new_user_session_path

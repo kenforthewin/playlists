@@ -1,0 +1,24 @@
+%br
+%br
+#playlist-setup
+  %h3 Create playlist
+  %section
+    .row
+      .col.s10.offset-s1
+        = form_for @playlist, url: {action: 'create'}, html: {class: ''} do |f|
+          .input-field
+            %label{for: 'name'} Name
+            = f.text_field :name
+          .input-field
+            %label{for: 'description'} Description
+            = f.text_area :description, class: 'materialize-textarea'
+  %h3 Add tracks
+  %section
+    .row
+      .col.s10.offset-s1
+        %form
+          .input-field
+            %input{type: 'text'}
+  %h3 Publish
+  %section
+    %p This is a section
