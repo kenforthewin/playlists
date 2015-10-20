@@ -13,8 +13,9 @@ window.submitPlaylist = () ->
 window.submitTrack = () ->
   form = $('#track-form')
   form_data = form.serialize()
-  url = '/tracks?' + form_data + '&playlist_id=' + form.data('playlist-id')
-  $.post url, null, (data) ->
+  url = '/tracks?' +'playlist_id=' + form.data('playlist-id')
+  content = $('#track-content').val()
+  $.post url, {content: content}, (data) ->
     $('#track-content').val('')
     $('#track-list').append('<li>' + data.content + '</li>')
 
