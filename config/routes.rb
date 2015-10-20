@@ -1,9 +1,12 @@
 Rails.application.routes.draw do
+  get 'tracks/create'
+
   devise_for :users
 
   root 'playlists#index'
 
   resources :playlists
+  resources :tracks
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

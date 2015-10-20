@@ -37,6 +37,7 @@ gem 'devise'
 gem 'materialize-sass'
 gem 'paperclip'
 gem 'aws-sdk', '< 2.0'
+gem 'jquery-validation-rails'
 
 
 group :development, :test do

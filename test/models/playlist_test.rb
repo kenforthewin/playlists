@@ -12,6 +12,7 @@
 #  pic_content_type :string
 #  pic_file_size    :integer
 #  pic_updated_at   :datetime
+#  published        :boolean          default(FALSE)
 #
 
 require 'test_helper'
