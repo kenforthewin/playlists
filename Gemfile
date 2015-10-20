@@ -38,6 +38,7 @@ gem 'materialize-sass'
 gem 'paperclip'
 gem 'aws-sdk', '< 2.0'
 gem 'jquery-validation-rails'
+gem 'thumbs_up'
 
 
 group :development, :test do

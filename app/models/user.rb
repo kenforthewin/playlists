@@ -24,4 +24,6 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :playlists
+  acts_as_voter
+  has_karma :playlists, :as => :user
 end

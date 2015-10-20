@@ -1,0 +1,8 @@
+.row
+  .col.s12
+    #playlist-show
+      - @playlist.tracks.each_with_index do |track, index|
+        %h3 Track #{index + 1}
+        %section
+          .row
+            .col.s12= track.text_content

@@ -39,3 +39,7 @@ $primary-color: color("blue-grey", "darken-3") !default;
 .wizard > .content{
   background:white;
 }
+
+.wizard#playlist-show .content {
+  min-height: 350px;
+}
