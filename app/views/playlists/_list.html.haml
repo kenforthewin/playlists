@@ -9,7 +9,8 @@
               %a{href: '#', onclick: 'return false;'}
                 %i.material-icons.playlist-play{style: 'color:white', :'data-playlist-id' => playlist.id} play_arrow
               %a{href: '#', onclick: 'return false;'}
-                %i.material-icons.playlist-star{style: 'color:white', :'data-playlist-id' => playlist.id, :'data-voted-for' => current_user.voted_for?(playlist), :'data-vote-value' => vote_value} star
+                - voted_for = user_signed_in? ? current_user.voted_for?(playlist) : false
+                %i.material-icons.playlist-star{style: 'color:white', :'data-playlist-id' => playlist.id, :'data-voted-for' => voted_for, :'data-vote-value' => vote_value} star
               %br
               .col.s8.offset-s2
                 %h5= vote_value
@@ -18,7 +19,7 @@
             .col.s8
               %h3= playlist.name
             .col.s1
-              - if playlist.user_id == current_user.id
+              - if user_signed_in? && playlist.user_id == current_user.id
                 = link_to 'Edit', edit_playlist_path(playlist)
           - if playlist.description?
             %hr{style: 'color:white;'}
