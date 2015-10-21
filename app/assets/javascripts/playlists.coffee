@@ -90,6 +90,14 @@ $ ->
             $('#playlist-modal').closeModal()
        ), 50
     ), 50
+#
+#  $('.playlist-star').click ->
+#    playlist_id = $(this).data('playlist-id')
+#    url = '/playlists/' + playlist_id.toString() + '/upvote'
+#    voted_for = $(this).data('voted-for')
+#    vote_value = $(this).data('')
+#    $.post url
+#    if voted_for
 
 
 

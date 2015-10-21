@@ -6,6 +6,9 @@ Rails.application.routes.draw do
   root 'playlists#index'
 
   resources :playlists do
+    member do
+      post :upvote
+    end
     collection do
       get :my
     end

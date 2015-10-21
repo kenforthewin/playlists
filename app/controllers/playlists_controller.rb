@@ -1,7 +1,7 @@
 class PlaylistsController < ApplicationController
 
   before_filter :authenticate_user!, only: [:new, :create]
-  before_filter :set_playlist, only: [:edit, :show, :destroy]
+  before_filter :set_playlist, only: [:edit, :show, :destroy, :upvote]
   def index
     @playlists = Playlist.all
   end
@@ -49,6 +49,17 @@ class PlaylistsController < ApplicationController
 
     @playlist.delete
     redirect_to root_path
+  end
+
+  def upvote
+    @user = current_user
+    if @user.voted_for?(@playlist)
+      @user.unvote_for(@playlist)
+    else
+      @user.vote_for(@playlist)
+    end
+
+    render nothing: true
   end
 
   private
