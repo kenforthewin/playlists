@@ -8,6 +8,10 @@
     = csrf_meta_tags
     %link{href: 'https://fonts.googleapis.com/icon?family=Material+Icons', rel: 'stylesheet'}
   %body
-    = render 'layouts/navigation'
-    .container
-      = yield
+    %header
+      = render 'layouts/navigation'
+    %main
+      .container
+        = yield
+    %footer
+      = render 'layouts/footer'

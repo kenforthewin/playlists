@@ -12,6 +12,7 @@
  *
  *= require_tree .
  *= require jquery.steps
+ *= require quill.snow
  *= require_self
  */
 
@@ -42,4 +43,24 @@ $primary-color: color("blue-grey", "darken-3") !default;
 
 .wizard#playlist-show .content {
   min-height: 350px;
+}
+
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+#playlist-setup-p-1{
+  overflow:scroll;
+}
+
+.playlist-edit{
+  position:absolute;
+  bottom:0;
+  left:0
 }

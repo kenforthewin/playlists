@@ -40,6 +40,8 @@ gem 'aws-sdk', '< 2.0'
 gem 'jquery-validation-rails'
 gem 'thumbs_up'
 
+gem 'quill-rails', '~> 0.1.0'
+
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

@@ -100,15 +100,21 @@ $ ->
     $.post url
     if voted_for
       $(this).data('voted-for', false)
-      $(this).css('color', 'white')
+      $(this).css('color', 'black')
       $(this).data('vote-value', vote_value - 1)
       $('.vote-value[data-playlist-id="' + playlist_id + '"]').html(vote_value - 1)
     else if signed_in
       $(this).data('voted-for', true)
-      $(this).css('color', 'yellow')
+      $(this).css('color', '#26a69a')
       $(this).data('vote-value', vote_value + 1)
       $('.vote-value[data-playlist-id="' + playlist_id + '"]').html(vote_value + 1)
 
+#  if $('#track-content').length
+#    quill = new Quill('#track-content', {
+#      modules:
+#        'toolbar': { container: '#full-toolbar' }
+#      theme: 'snow'
+#    })
 
 
 
