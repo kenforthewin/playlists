@@ -11,7 +11,7 @@
               %a{href: '#', onclick: 'return false;'}
                 - signed_in = user_signed_in?
                 - voted_for = signed_in ? (current_user.voted_for?(playlist) ? 'true' : 'false') : 'false'
-                - style = voted_for ? 'color:yellow' : 'color:white'
+                - style = voted_for == 'true' ? 'color:yellow' : 'color:white'
                 %i.material-icons.playlist-star{style: style, :'data-playlist-id' => playlist.id, :'data-voted-for' => voted_for, :'data-vote-value' => vote_value, :'data-signed-in' => signed_in.to_s} star
               %br
               .col.s8.offset-s2
