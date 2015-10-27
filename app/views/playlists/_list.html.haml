@@ -9,15 +9,17 @@
               %a{href: '#', onclick: 'return false;'}
                 %i.material-icons.playlist-play{style: 'color:white', :'data-playlist-id' => playlist.id} play_arrow
               %a{href: '#', onclick: 'return false;'}
-                - voted_for = user_signed_in? ? current_user.voted_for?(playlist) : false
-                %i.material-icons.playlist-star{style: 'color:white', :'data-playlist-id' => playlist.id, :'data-voted-for' => voted_for, :'data-vote-value' => vote_value} star
+                - signed_in = user_signed_in?
+                - voted_for = signed_in ? (current_user.voted_for?(playlist) ? 'true' : 'false') : 'false'
+                - style = voted_for ? 'color:yellow' : 'color:white'
+                %i.material-icons.playlist-star{style: style, :'data-playlist-id' => playlist.id, :'data-voted-for' => voted_for, :'data-vote-value' => vote_value, :'data-signed-in' => signed_in.to_s} star
               %br
               .col.s8.offset-s2
-                %h5= vote_value
+                %h5.vote-value{:'data-playlist-id' => playlist.id}= vote_value
             .col.s2
               = image_tag playlist.pic.url(:thumb), class: 'z-depth-3'
             .col.s8
-              %h3= playlist.name
+              %h4= playlist.name
             .col.s1
               - if user_signed_in? && playlist.user_id == current_user.id
                 = link_to 'Edit', edit_playlist_path(playlist)

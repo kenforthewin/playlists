@@ -52,6 +52,11 @@ class PlaylistsController < ApplicationController
   end
 
   def upvote
+
+    unless user_signed_in?
+      return render json: false
+    end
+
     @user = current_user
     if @user.voted_for?(@playlist)
       @user.unvote_for(@playlist)

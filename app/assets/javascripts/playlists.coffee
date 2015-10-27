@@ -90,14 +90,24 @@ $ ->
             $('#playlist-modal').closeModal()
        ), 50
     ), 50
-#
-#  $('.playlist-star').click ->
-#    playlist_id = $(this).data('playlist-id')
-#    url = '/playlists/' + playlist_id.toString() + '/upvote'
-#    voted_for = $(this).data('voted-for')
-#    vote_value = $(this).data('')
-#    $.post url
-#    if voted_for
+
+  $('.playlist-star').click ->
+    playlist_id = $(this).data('playlist-id')
+    url = '/playlists/' + playlist_id.toString() + '/upvote'
+    voted_for = $(this).data('voted-for')
+    vote_value = $(this).data('vote-value')
+    signed_in = $(this).data('signed-in')
+    $.post url
+    if voted_for
+      $(this).data('voted-for', false)
+      $(this).css('color', 'white')
+      $(this).data('vote-value', vote_value - 1)
+      $('.vote-value[data-playlist-id="' + playlist_id + '"]').html(vote_value - 1)
+    else if signed_in
+      $(this).data('voted-for', true)
+      $(this).css('color', 'yellow')
+      $(this).data('vote-value', vote_value + 1)
+      $('.vote-value[data-playlist-id="' + playlist_id + '"]').html(vote_value + 1)
 
 
 
