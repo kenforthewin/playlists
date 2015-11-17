@@ -1,8 +1,27 @@
+%br
+.row
+  .col.s2
+    = image_tag @playlist.pic.url(:thumb), class: 'z-depth-1 circle'
+  .col.s10
+    %h3= @playlist.name
 .row
   .col.s12
-    #playlist-show
-      - @playlist.tracks.each_with_index do |track, index|
-        %h3 Track #{index + 1}
-        %section
-          .row
-            .col.s12= track.text_content
+    %table
+      %thead
+        %tr
+          %th
+          %th
+      %tbody
+        - @playlist.tracks.each_with_index do |track, index|
+          %tr
+            %td
+              %h5= index + 1
+            %td
+              .row
+                .col.s12
+                  - if track.content_type == 'text'
+                    .track-content.track-text
+                      %p= track.text_content
+                  - elsif track.content_type == 'youtube'
+                    .track-content.track-youtube
+                      = track.text_content.html_safe

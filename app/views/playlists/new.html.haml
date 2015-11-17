@@ -1,30 +1,3 @@
 %br
 %br
-#playlist-setup
-  %h3 Create playlist
-  %section
-    .row
-      .col.s10.offset-s1
-        %form#playlist-form
-          .input-field
-            %label{for: 'name'} Name
-            %input{type: 'text', name: 'name'}
-          .input-field
-            %label{for: 'description'} Description
-            %textarea.materialize-textarea{name: 'description'}
-  %h3 Add tracks
-  %section
-    .row
-      %form#track-form
-        .col.s10.offset-s1
-          .input-field
-            %textarea.materialize-textarea#track-content{name: 'content'}
-        .col.s1
-          %button.btn-floating.btn-large.waves-effect.waves-light#addTrack
-            %i.material-icons add
-    .row
-      .col.s12
-        %ol#track-list
-  %h3 Publish
-  %section
-    %p This is a section
+= render 'form'

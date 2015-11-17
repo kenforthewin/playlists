@@ -27,7 +27,11 @@ class PlaylistsController < ApplicationController
     @tracks = @playlist.tracks
 
     json_tracks = @tracks.map{|t| {text_content: t.text_content, content_type: nil }}
-    render json: {id: @playlist.id, name: @playlist.name, description: @playlist.description, tracks: json_tracks}
+
+    respond_to do |format|
+      format.json {render json: {id: @playlist.id, name: @playlist.name, description: @playlist.description, tracks: json_tracks} }
+      format.html
+    end
   end
 
   def edit

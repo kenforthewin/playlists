@@ -9,6 +9,7 @@ window.submitPlaylist = () ->
   $.post url, {playlist_id: playlist_id}, (data) ->
     form.data('playlist-id', data)
     $('#track-form').data('playlist-id', data)
+    $('#track-youtube-form').data('playlist-id', data)
   true
 
 window.submitTrack = () ->
@@ -16,17 +17,28 @@ window.submitTrack = () ->
   form_data = form.serialize()
   url = '/tracks?' +'playlist_id=' + form.data('playlist-id')
   content = $('#track-content').val()
-  $.post url, {content: content}, (data) ->
+  $.post url, {content: content, content_type: 0}, (data) ->
     $('#track-content').val('')
     delete_button = '<a href="#" onclick="return false;"><i class="material-icons delete-track" data-track-id=' + data.id.toString() + '>delete</i></a>'
     $('#track-list').append('<li>' + data.content + delete_button +  '</li>')
 
+window.submitYoutubeTrack = () ->
+  form = $('#track-youtube-form')
+  form_data = form.serialize()
+  url = '/tracks?' +'playlist_id=' + form.data('playlist-id')
 
-
+  content = $('#track-youtube-content').val()
+  $.post url, {content: content, content_type: 1}, (data) ->
+    $('#track-youtube-content').val('')
+    delete_button = '<a href="#" onclick="return false;"><i class="material-icons delete-track" data-track-id=' + data.id.toString() + '>delete</i></a>'
+    $('#track-list').append('<li class="track-youtube">' + data.content + delete_button + '</li>')
 
 $ ->
   $('#addTrack').on 'click',  ->
     submitTrack()
+
+  $('#addYoutubeTrack').on 'click', ->
+    submitYoutubeTrack()
 
   playlistForm = $('#playlist-form')
 
@@ -35,7 +47,7 @@ $ ->
   $('#playlist-setup').steps(
     headerTag: 'h3'
     bodyTag: 'section'
-    transitionEffect: 'fade'
+    transitionEffect: 'none'
     autoFocus: true
     onStepChanging: (event, currentIndex, newIndex) ->
       if currentIndex == 0
@@ -47,6 +59,10 @@ $ ->
 
   $('#track-form').submit ->
     submitTrack()
+    false
+
+  $('#track-youtube-form').submit ->
+    submitYoutubeTrack()
     false
 
   $('body').on 'click', '.delete-track', ->
@@ -67,28 +83,16 @@ $ ->
 
   $('.playlist-play').click ->
     playlist_id = $(this).data('playlist-id')
-    url = '/playlists/' + playlist_id.toString()
+    url = '/playlists/' + playlist_id.toString() + '.json'
     $('#playlist-show').html('')
     $('#playlist-modal').openModal()
 
     setTimeout (->
       $.get url, (data) ->
        $.each data.tracks, (index, value) ->
-         header = '<h3>Track ' + (index + 1).toString() + '</h3>'
-         section = '<section>' + value.text_content + '</section>'
+         content = '<tr><td>' + (index  + 1).toString() + '</td>' + '<td><p>' + value.text_content + '</p></td></tr>'
 
-         $('#playlist-show').append header
-         $('#playlist-show').append section
-
-       setTimeout (->
-         $('#playlist-show').steps
-           headerTag: 'h3'
-           bodyTag: 'section'
-           transitionEffect: 'fade'
-           autoFocus: true
-           onFinished: ->
-            $('#playlist-modal').closeModal()
-       ), 50
+         $('#playlist-show').append content
     ), 50
 
   $('.playlist-star').click ->
@@ -109,12 +113,21 @@ $ ->
       $(this).data('vote-value', vote_value + 1)
       $('.vote-value[data-playlist-id="' + playlist_id + '"]').html(vote_value + 1)
 
-#  if $('#track-content').length
-#    quill = new Quill('#track-content', {
-#      modules:
-#        'toolbar': { container: '#full-toolbar' }
-#      theme: 'snow'
-#    })
+
+  $('#track-form').hide()
+  $('#track-youtube-form').hide()
+  $('#add-youtube').click (e) ->
+    e.preventDefault()
+
+    $('#track-youtube-form').show()
+    $('#track-form').hide()
+
+  $('#add-text').click (e) ->
+    e.preventDefault()
+
+    $('#track-youtube-form').hide()
+    $('#track-form').show()
+
 
 
 

@@ -2,7 +2,7 @@
   .col.s12
     - @playlists.each do |playlist|
       - vote_value = playlist.plusminus
-      .card.grey.lighten-5.z-depth-1
+      .card.grey.lighten-5.z-depth-1.hoverable
         .card-content
           .row
             .col.s1
@@ -13,20 +13,29 @@
                 - voted_for = signed_in ? (current_user.voted_for?(playlist) ? 'true' : 'false') : 'false'
                 - style = voted_for == 'true' ? 'color:#26a69a' : 'color:black'
                 %i.material-icons.playlist-star{style: style, :'data-playlist-id' => playlist.id, :'data-voted-for' => voted_for, :'data-vote-value' => vote_value, :'data-signed-in' => signed_in.to_s} star
-              %br
-              .col.s8.offset-s2
-                %h5.vote-value{:'data-playlist-id' => playlist.id}= vote_value
               - if user_signed_in? && playlist.user_id == current_user.id
                 = link_to 'Edit', edit_playlist_path(playlist), class: 'playlist-edit'
             .col.s2
               = image_tag playlist.pic.url(:thumb), class: 'z-depth-1 circle'
             .col.s9
-              %h5= playlist.name
+              %h5= link_to playlist.name, playlist_path(playlist)
               %hr
-              - if playlist.description?
-                = playlist.description
+                .row
+                  - if playlist.description?
+                    .col.s10
+                      = playlist.description
+                    .col.s2
+                      %h5.vote-value{:'data-playlist-id' => playlist.id}= vote_value
+                  - else
+                    .col.s2.offset-s10
+                      %h5.vote-value{:'data-playlist-id' => playlist.id}= vote_value
 #playlist-modal.modal
   .modal-content
     .row
       .col.s12
-        #playlist-show
+        %table.striped
+          %thead
+            %tr
+              %th
+              %th
+          %tbody#playlist-show

@@ -7,6 +7,8 @@
 #  text_content :text
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
+#  content_type :integer
+#  name         :string
 #
 
 require 'test_helper'

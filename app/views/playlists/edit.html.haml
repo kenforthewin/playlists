@@ -1,37 +1,5 @@
 %br
 %br
-#playlist-setup
-  %h3 Edit playlist
-  %section
-    .row
-      .col.s10.offset-s1
-        %form#playlist-form{:'data-playlist-id' => @playlist.id}
-          .input-field
-            %label{for: 'name'} Name
-            %input{type: 'text', name: 'name', value: @playlist.name}
-          .input-field
-            %label{for: 'description'} Description
-            %textarea.materialize-textarea{name: 'description', value: @playlist.description}
-  %h3 Add tracks
-  %section
-    .row
-      %form#track-form{:'data-playlist-id' => @playlist.id}
-        .col.s10.offset-s1
-          .input-field
-            %textarea.materialize-textarea#track-content{name: 'content'}
-        .col.s1
-          %button.btn-floating.btn-large.waves-effect.waves-light#addTrack
-            %i.material-icons add
-    .row
-      .col.s12
-        %ol#track-list
-          - @playlist.tracks.each do |track|
-            %li
-              = track.text_content
-              %a{href: '#', onclick: "return false;" }
-                %i.material-icons.delete-track{:'data-track-id' => track.id} delete
-  %h3 Publish
-  %section
-    %p This is a section
+= render 'form'
 %br
 = link_to 'Delete', '/playlists/' + @playlist.id.to_s, method: :delete

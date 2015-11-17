@@ -39,7 +39,7 @@ gem 'paperclip'
 gem 'aws-sdk', '< 2.0'
 gem 'jquery-validation-rails'
 gem 'thumbs_up'
-
+gem 'yt', '~> 0.25.5'
 gem 'quill-rails', '~> 0.1.0'
 
 
