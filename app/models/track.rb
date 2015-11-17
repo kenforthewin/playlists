@@ -33,6 +33,7 @@ class Track < ActiveRecord::Base
           video = Yt::Video.new url: self.text_content
           self.name = video.title
           self.text_content = video.embed_html
+          puts 'successfully'
         rescue Exception => e
           errors.add(:text_content, 'is not a valid youtube video link')
           puts e.message
