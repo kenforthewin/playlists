@@ -129,5 +129,6 @@ $ ->
     $('#track-form').show()
 
 
-
-
+  $('.track-number').click ->
+    track_id = $(this).data('track-id')
+    $('.track-content[data-track-id="' + track_id + '"]').toggle()

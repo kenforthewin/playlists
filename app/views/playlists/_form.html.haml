@@ -28,7 +28,7 @@
       .row
         .col.s10.offset-s1
           .input-field
-            %textarea.materialize-textarea#track-content{name: 'content'}
+            = quill_editor 'track-content'
         .col.s1
           %button.btn-floating.btn-large.waves-effect.waves-light#addTrack
             %i.material-icons add

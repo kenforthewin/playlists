@@ -6,22 +6,19 @@
     %h3= @playlist.name
 .row
   .col.s12
-    %table
-      %thead
-        %tr
-          %th
-          %th
-      %tbody
-        - @playlist.tracks.each_with_index do |track, index|
-          %tr
-            %td
-              %h5= index + 1
-            %td
-              .row
-                .col.s12
-                  - if track.content_type == 'text'
-                    .track-content.track-text
-                      %p= track.text_content
-                  - elsif track.content_type == 'youtube'
-                    .track-content.track-youtube
-                      = track.text_content.html_safe
+    - @playlist.tracks.each_with_index do |track, index|
+      .row
+        .card.grey.lighten-5.z-depth-1.hoverable.show-track-content
+          .card-content
+            .col.s2
+              %button.btn-floating.btn-large.waves-effect.waves-light
+                %h5.track-number{:'data-track-id' => track.id}
+                  = index + 1
+              %br
+            .col.s10
+              - if track.content_type == 'text'
+                .track-content.track-text{:'data-track-id' => track.id}
+                  %p= track.text_content.html_safe
+              - elsif track.content_type == 'youtube'
+                .track-content.track-youtube{:'data-track-id' => track.id}
+                  = track.text_content.html_safe
