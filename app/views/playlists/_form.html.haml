@@ -24,6 +24,11 @@
           %br
           Add a text post
       .col.s3
+        %a#add-tweet{href: '#'}
+          %i.fa.fa-twitter.fa-5x
+          %br
+          Add a tweet
+      .col.s3
     %form#track-form{:'data-playlist-id' => @playlist.id}
       .row
         .col.s10.offset-s1
@@ -32,7 +37,7 @@
         .col.s1
           %button.btn-floating.btn-large.waves-effect.waves-light#addTrack
             %i.material-icons add
-    %form#track-youtube-form
+    %form#track-youtube-form{:'data-playlist-id' => @playlist.id}
       .row
         .col.s10.offset-s1
           .input-field
@@ -40,6 +45,15 @@
             %input#track-youtube-content{type: 'text', name: 'content'}
         .col.s1
           %button.btn-floating.btn-large.waves-effect.waves-light#addYoutubeTrack
+            %i.material-icons add
+    %form#track-tweet-form{:'data-playlist-id' => @playlist.id}
+      .row
+        .col.s10.offset-s1
+          .input-field
+            %label{for: 'content'} Paste link to tweet
+            %input#track-tweet-content{type: 'text', name: 'content'}
+        .col.s1
+          %button.btn-floating.btn-large.waves-effect.waves-light#addTweetTrack
             %i.material-icons add
     .row
       .col.s12

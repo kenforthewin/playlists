@@ -13,8 +13,8 @@
 
 class Track < ActiveRecord::Base
   belongs_to :playlist
-  enum content_type: [:text, :youtube]
-  validate :youtube_validator
+  enum content_type: [:text, :youtube, :tweet]
+  validate :youtube_validator, :tweet_validator
   validates :content_type, :playlist_id, :text_content, presence: true
 
   def to_html
@@ -37,6 +37,23 @@ class Track < ActiveRecord::Base
         rescue Exception => e
           errors.add(:text_content, 'is not a valid youtube video link')
           puts e.message
+        end
+      end
+    end
+
+    def tweet_validator
+      if self.content_type == 'tweet'
+        begin
+          response = Net::HTTP.get_response(URI("https://api.twitter.com/1/statuses/oembed.json?url=#{self.text_content}"))
+          body = JSON.parse response.body
+
+          if body['html']
+            self.text_content = body['html']
+          else
+            errors.add(:text_content, 'is not a valid tweet link')
+          end
+        rescue
+          errors.add(:text_content, 'is not a valid tweet link')
         end
       end
     end

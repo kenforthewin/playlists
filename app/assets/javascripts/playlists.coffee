@@ -10,6 +10,7 @@ window.submitPlaylist = () ->
     form.data('playlist-id', data)
     $('#track-form').data('playlist-id', data)
     $('#track-youtube-form').data('playlist-id', data)
+    $('#track-tweet-form').data('playlist-id', data)
   true
 
 window.submitTrack = () ->
@@ -33,12 +34,25 @@ window.submitYoutubeTrack = () ->
     delete_button = '<a href="#" onclick="return false;"><i class="material-icons delete-track" data-track-id=' + data.id.toString() + '>delete</i></a>'
     $('#track-list').append('<li class="track-youtube">' + data.content + delete_button + '</li>')
 
+window.submitTweetTrack = () ->
+  form = $('#track-tweet-form')
+  form_data = form.serialize()
+  url = '/tracks?' +'playlist_id=' + form.data('playlist-id')
+  content = $('#track-tweet-content').val()
+  $.post url, {content: content, content_type: 2}, (data) ->
+    $('#track-tweet-content').val('')
+    delete_button = '<a href="#" onclick="return false;"><i class="material-icons delete-track" data-track-id=' + data.id.toString() + '>delete</i></a>'
+    $('#track-list').append('<li class="track-tweet">' + data.content + delete_button + '</li>')
+
 $ ->
   $('#addTrack').on 'click',  ->
     submitTrack()
 
   $('#addYoutubeTrack').on 'click', ->
     submitYoutubeTrack()
+
+  $('#addTweetTrack').on 'click', ->
+    submitTweetTrack()
 
   playlistForm = $('#playlist-form')
 
@@ -63,6 +77,10 @@ $ ->
 
   $('#track-youtube-form').submit ->
     submitYoutubeTrack()
+    false
+
+  $('#track-tweet-form').submit ->
+    submitTweetTrack()
     false
 
   $('body').on 'click', '.delete-track', ->
@@ -116,17 +134,27 @@ $ ->
 
   $('#track-form').hide()
   $('#track-youtube-form').hide()
+  $('#track-tweet-form').hide()
   $('#add-youtube').click (e) ->
     e.preventDefault()
 
     $('#track-youtube-form').show()
     $('#track-form').hide()
+    $('#track-tweet-form').hide()
 
   $('#add-text').click (e) ->
     e.preventDefault()
 
     $('#track-youtube-form').hide()
     $('#track-form').show()
+    $('#track-tweet-form').hide()
+
+  $('#add-tweet').click (e) ->
+    e.preventDefault()
+
+    $('#track-youtube-form').hide()
+    $('#track-form').hide()
+    $('#track-tweet-form').show()
 
 
   $('.track-number').click ->

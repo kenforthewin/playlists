@@ -22,3 +22,6 @@
               - elsif track.content_type == 'youtube'
                 .track-content.track-youtube{:'data-track-id' => track.id}
                   = track.text_content.html_safe
+              -elsif track.content_type == 'tweet'
+                .track-content.track-tweet{:'data-track-id' => track.id}
+                  = track.text_content.html_safe
