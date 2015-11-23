@@ -1,27 +1,46 @@
 %br
 .row
   .col.s2
-    = image_tag @playlist.pic.url(:thumb), class: 'z-depth-1 circle'
+    = image_tag @playlist.pic.url(:thumb), class: 'z-depth-1'
   .col.s10
     %h3= @playlist.name
 .row
   .col.s12
+    %ul.tabs
+      %li.tab.col.s3
+        %a{href: '#content'} Tracks
+      %li.tab.col.s3
+        %a{href: '#comments'} Comments
+.row
+  .col.s12#content
     - @playlist.tracks.each_with_index do |track, index|
       .row
-        .card.grey.lighten-5.z-depth-1.hoverable.show-track-content
-          .card-content
-            .col.s2
-              %button.btn-floating.btn-large.waves-effect.waves-light
-                %h5.track-number{:'data-track-id' => track.id}
-                  = index + 1
-              %br
-            .col.s10
-              - if track.content_type == 'text'
-                .track-content.track-text{:'data-track-id' => track.id}
-                  %p= track.text_content.html_safe
-              - elsif track.content_type == 'youtube'
-                .track-content.track-youtube{:'data-track-id' => track.id}
-                  = track.text_content.html_safe
-              -elsif track.content_type == 'tweet'
-                .track-content.track-tweet{:'data-track-id' => track.id}
-                  = track.text_content.html_safe
+        .col.s2
+          %button.btn-floating.btn-large.waves-effect.waves-light
+            %h5.track-number{:'data-track-id' => track.id}= index + 1
+          %br
+        .col.s10
+          - if track.content_type == 'text'
+            .track-content.track-text{:'data-track-id' => track.id}
+              %p= track.text_content.html_safe
+          - elsif track.content_type == 'youtube'
+            .track-content.track-youtube{:'data-track-id' => track.id}
+              = track.text_content.html_safe
+          -elsif track.content_type == 'tweet'
+            .track-content.track-tweet{:'data-track-id' => track.id}
+              = track.text_content.html_safe
+  .col.s12#comments
+    - if user_signed_in?
+      .row
+        .col.s9
+          %form#comment-form
+            %textarea.materialize-textarea#comment-input{name: 'body'}
+            %input{type: 'hidden', name: 'playlist_id', value: @playlist.id}
+            %input{type: 'hidden', name: 'user_id', value: current_user.id}
+            %button#comment-submit.btn.waves-effect Submit
+    .row
+      .col.s12
+        #playlist-comments
+          - @playlist.comments.each do |comment|
+            %blockquote=comment.body
+            .right-align - #{comment.user.email}

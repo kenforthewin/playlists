@@ -6,7 +6,7 @@
         %form#playlist-form{:'data-playlist-id' => @playlist.id}
           .input-field
             %label{for: 'name'} Name
-            %input{type: 'text', name: 'name', value: @playlist.name}
+            %input#playlist-name{type: 'text', name: 'name', value: @playlist.name}
           .input-field
             %label{for: 'description'} Description
             %textarea.materialize-textarea{name: 'description', value: @playlist.description}

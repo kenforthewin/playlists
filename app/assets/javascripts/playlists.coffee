@@ -44,6 +44,13 @@ window.submitTweetTrack = () ->
     delete_button = '<a href="#" onclick="return false;"><i class="material-icons delete-track" data-track-id=' + data.id.toString() + '>delete</i></a>'
     $('#track-list').append('<li class="track-tweet">' + data.content + delete_button + '</li>')
 
+window.submitComment = () ->
+  form = $('#comment-form')
+  url = '/comments?' + form.serialize()
+  $.post url, null, (data) ->
+    $('#playlist-comments').append('<blockquote>' + data.body + '</blockquote>' + '<div class="right-align">- ' + data.email + '</div>')
+    $('#comment-input').val('')
+
 $ ->
   $('#addTrack').on 'click',  ->
     submitTrack()
@@ -65,7 +72,10 @@ $ ->
     autoFocus: true
     onStepChanging: (event, currentIndex, newIndex) ->
       if currentIndex == 0
-        submitPlaylist()
+        if $('#playlist-name').val() == ''
+          event.preventDefault()
+        else
+          submitPlaylist()
       else
         true
 
@@ -81,6 +91,10 @@ $ ->
 
   $('#track-tweet-form').submit ->
     submitTweetTrack()
+    false
+
+  $('#comment-form').submit ->
+    submitComment()
     false
 
   $('body').on 'click', '.delete-track', ->
@@ -155,6 +169,11 @@ $ ->
     $('#track-youtube-form').hide()
     $('#track-form').hide()
     $('#track-tweet-form').show()
+
+  $('#comment-submit').click (e) ->
+    e.preventDefault()
+    submitComment()
+    false
 
 
   $('.track-number').click ->

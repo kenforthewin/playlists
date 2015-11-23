@@ -20,5 +20,6 @@ class Playlist < ActiveRecord::Base
   validates_attachment_content_type :pic, content_type: /\Aimage\/.*\Z/
   belongs_to :user
   has_many :tracks
+  has_many :comments
   acts_as_voteable
 end
